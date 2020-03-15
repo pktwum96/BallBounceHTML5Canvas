@@ -5,12 +5,24 @@ body {
   margin: 0;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.colourPalette {
+  background-color: white;
+}
+
 td {
-    border: 0
+  border: 0
 }
+
 button {
-    border: 0
+  border: 0
 }
+
 canvas {
   border: 1px solid black;
   margin-top: 25vh;
@@ -19,40 +31,32 @@ canvas {
 
 #redSwatch {
   background-color: red;
-
 }
 
 #orangeSwatch {
-  background-color:orange ;
-
+  background-color: orange;
 }
 
 #yellowSwatch {
-  background-color:yellow ;
-
+  background-color: yellow;
 }
 
 #greenSwatch {
   background-color: green;
-
 }
 
 #blueSwatch {
   background-color: blue;
-
 }
 
 #indigoSwatch {
   background-color: indigo;
-
 }
 
 #violetSwatch {
   background-color: violet;
-
 }
 
 #blackSwatch {
   background-color: black;
-
 }
