@@ -2,6 +2,18 @@ var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight / 2;
 
+var colourSelected="black";
+
+document.getElementById("redSwatch").onclick = function() {colourSelected="red"};
+document.getElementById("orangeSwatch").onclick = function() {colourSelected="orange"};
+document.getElementById("yellowSwatch").onclick = function() {colourSelected="yellow"};
+document.getElementById("greenSwatch").onclick = function() {colourSelected="green"};
+document.getElementById("blueSwatch").onclick = function() {colourSelected="blue"};
+document.getElementById("indigoSwatch").onclick = function() {colourSelected="indigo"};
+document.getElementById("violetSwatch").onclick = function() {colourSelected="violet"};
+document.getElementById("blackSwatch").onclick = function() {colourSelected="black"};
+
+
 var timerID;
 var counter = 0;
 
@@ -27,8 +39,8 @@ function pressingDown(e) {
 function notPressingDown(e) {
   // Stop the timer
   position.x=event.x;
-  position.y=Math.round(event.y-innerHeight/4);
-  var ball = new Ball(position.x, position.y, counter/10, counter/10, 10, "blue");
+  position.y=Math.round(event.y-canvas.height/2 -40);
+  var ball = new Ball(position.x, position.y, counter/10, counter/10, 10, colourSelected);
   balls.push(ball);
   console.log(balls);
   cancelAnimationFrame(timerID);
@@ -66,11 +78,11 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
 
     this.positionX += this.vectorX;
     this.positionY += this.vectorY;
-    if (this.positionX + this.ballRadius >= canvas.width || this.positionX - this.ballRadius <= 0) {
+    if (this.positionX + this.ballRadius > canvas.width || this.positionX - this.ballRadius < 0) {
       this.vectorX = -this.vectorX;
     }
 
-    if (this.positionY + this.ballRadius >= canvas.height || this.positionY - this.ballRadius <= 0) {
+    if (this.positionY + this.ballRadius > canvas.height || this.positionY - this.ballRadius < 0) {
       this.vectorY = -this.vectorY;
 
     }

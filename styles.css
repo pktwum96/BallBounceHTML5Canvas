@@ -2,11 +2,57 @@ body {
   background-color: #282c34;
   height: 100vh;
   position: relative;
-  margin:0;
+  margin: 0;
 }
 
+td {
+    border: 0
+}
+button {
+    border: 0
+}
 canvas {
   border: 1px solid black;
   margin-top: 25vh;
-  background-color:white;
+  background-color: white;
+}
+
+#redSwatch {
+  background-color: red;
+
+}
+
+#orangeSwatch {
+  background-color:orange ;
+
+}
+
+#yellowSwatch {
+  background-color:yellow ;
+
+}
+
+#greenSwatch {
+  background-color: green;
+
+}
+
+#blueSwatch {
+  background-color: blue;
+
+}
+
+#indigoSwatch {
+  background-color: indigo;
+
+}
+
+#violetSwatch {
+  background-color: violet;
+
+}
+
+#blackSwatch {
+  background-color: black;
+
 }
