@@ -1,0 +1,12 @@
+body {
+  background-color: #282c34;
+  height: 100vh;
+  position: relative;
+  margin:0;
+}
+
+canvas {
+  border: 1px solid black;
+  margin-top: 25vh;
+  background-color:white;
+}
