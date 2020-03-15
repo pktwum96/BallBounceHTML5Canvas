@@ -22,13 +22,14 @@ td {
 button {
   border: 0
 }
-
+/*canvas properties*/
 canvas {
   border: 1px solid black;
   margin-top: 25vh;
   background-color: white;
 }
 
+/*colour swatches for pallete*/
 #redSwatch {
   background-color: red;
 }
