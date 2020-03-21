@@ -10,27 +10,27 @@
   <body>
     <div class="container">
       <!––Colour Palette to change colour of ball-->
-        <table class="colourPalette" width="50%">
-          <tr>
-            <th colspan="8">Colour Palette</th>
-          </tr>
-          <tr>
-            <td><button id="redSwatch">R</button></td>
-            <td><button id="orangeSwatch">O</button></td>
-            <td><button id="yellowSwatch">Y</button></td>
-            <td><button id="greenSwatch">G</button></td>
-            <td><button id="blueSwatch">B</button></td>
-            <td><button id="indigoSwatch">I</button></td>
-            <td><button id="violetSwatch">V</button></td>
-            <td><button id="blackSwatch">B</button></td>
-          </tr>
-        </table>
+        <div id="colourSelector">
+          <h4>Colour Palette</h4>
+          <div id="colourPalette">
+            <button id="red"></button>
+            <button id="orange"></button>
+            <button id="yellow"></button>
+            <button id="green"></button>
+            <button id="blue"></button>
+            <button id="indigo"></button>
+            <button id="violet"></button>
+            <button id="black"></button>
+          </div>
+        </div>
+        <div class="instructions">
+          <h3>PRESS AND HOLD TO INCREASE VELOCITY</h3>
+        </div>
         <!––where all the magic happens-->
           <canvas tabindex='1'></canvas>
     </div>
-    <script src="script.js">
-
-    </script>
+    <script src="script.js"> </script>
+    <script src="colourswitch.js"> </script>
   </body>
 
 </html>

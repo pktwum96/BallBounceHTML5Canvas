@@ -1,0 +1,22 @@
+{
+  "name": "ball-bounce-canvas",
+  "version": "1.0.0",
+  "description": "Creating a ball bounce animation using HTML Canvas",
+  "main": "(script.js)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pktwum96/BallBounceHTML5Canvas.git"
+  },
+  "author": "Kofi Twum-Ampofo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pktwum96/BallBounceHTML5Canvas/issues"
+  },
+  "homepage": "https://github.com/pktwum96/BallBounceHTML5Canvas#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}

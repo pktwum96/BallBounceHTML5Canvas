@@ -4,36 +4,8 @@ var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight / 2;
 
-
-//Change colour of ball on click
+//Set Defaukt ball Colour
 var colourSelected = "black";
-
-document.getElementById("redSwatch").onclick = function() {
-  colourSelected = "red"
-};
-document.getElementById("orangeSwatch").onclick = function() {
-  colourSelected = "orange"
-};
-document.getElementById("yellowSwatch").onclick = function() {
-  colourSelected = "yellow"
-};
-document.getElementById("greenSwatch").onclick = function() {
-  colourSelected = "green"
-};
-document.getElementById("blueSwatch").onclick = function() {
-  colourSelected = "blue"
-};
-document.getElementById("indigoSwatch").onclick = function() {
-  colourSelected = "indigo"
-};
-document.getElementById("violetSwatch").onclick = function() {
-  colourSelected = "violet"
-};
-document.getElementById("blackSwatch").onclick = function() {
-  colourSelected = "black"
-};
-
-
 
 //set speed of ball by monitoring how long mouse is clicked
 var timerID;
@@ -60,10 +32,7 @@ function pressingDown(e) {
 }
 
 function notPressingDown(e) {
-  // Stop the timer
-
   //Get position of mouse after click
-  console.log(event);
   position.x = event.offsetX;
   //y value
   position.y = event.offsetY;
@@ -75,7 +44,6 @@ function notPressingDown(e) {
   } else {
     balls.push(ball);
   }
-  console.log(balls);
   cancelAnimationFrame(timerID);
   counter = 0;
 }
@@ -89,7 +57,7 @@ function timer() {
 }
 
 var gravity = 0.4;
-var friction = 0.8;
+var friction = 0.9;
 
 var context = canvas.getContext('2d');
 
@@ -111,18 +79,18 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
 
   this.updateAnimation = function() {
     //Change direction and reduce speed when hits walls
-    if (this.positionX + this.ballRadius >= canvas.width || this.positionX - this.ballRadius <= 0) {
+    if (this.positionX + this.ballRadius - this.vectorX > canvas.width || this.positionX - this.ballRadius - this.vectorX < 0) {
       this.vectorX = -this.vectorX * friction;
     }
     //Change direction and reduce speed when hits walls
-    if (this.positionY + this.ballRadius - this.vectorY >= canvas.height || this.positionY - this.ballRadius <= 0) {
+    if (this.positionY + this.ballRadius - this.vectorY > canvas.height || this.positionY - this.ballRadius - this.vectorY < 0) {
       this.vectorY = -this.vectorY * friction;
     } else {
       //Apply gravity reducing speed
       this.vectorY -= gravity;
     }
     //reduce speed when in contact with floor
-    if (this.positionY + this.ballRadius - this.vectorY >= canvas.height) {
+    if (this.positionY + this.ballRadius + this.vectorY >= canvas.height) {
       this.vectorX = this.vectorX * friction;
     }
     //apply displacement using speed etc
