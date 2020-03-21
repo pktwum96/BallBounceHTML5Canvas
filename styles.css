@@ -3,6 +3,13 @@ body {
   height: 100vh;
   position: relative;
   margin: 0;
+  margin-top: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: white;
 }
 
 .container {
@@ -23,18 +30,35 @@ button {
   border: 0
 }
 
-.instructions {
-  margin-top: auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: white;
-}
-.instructions h3 {
+#instructions h3 {
   text-align: center;
   margin-bottom: 0;
+}
+
+.blinking {
+  animation: blinkingText 1.2s infinite;
+}
+
+@keyframes blinkingText {
+  0% {
+    color: red;
+  }
+
+  49% {
+    color: red;
+  }
+
+  80% {
+    color: transparent;
+  }
+
+  99% {
+    color: transparent;
+  }
+
+  100% {
+    color: red;
+  }
 }
 
 /*canvas properties*/
@@ -50,15 +74,18 @@ canvas {
   width: 50vh;
   color: white;
 }
+
 #colourSelector h4 {
   text-align: center;
 }
+
 #colourPalette button {
-  width:12.5%;
-  height:10px;
+  width: 12.5%;
+  height: 10px;
   margin-top: 5px;
   float: left;
 }
+
 #red {
   background-color: red;
 }

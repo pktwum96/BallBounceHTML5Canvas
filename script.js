@@ -19,7 +19,7 @@ var position = {
   y: 0
 }
 var balls = [];
-var pressHoldDuration = 100;
+var pressDuration = 100;
 
 // Listening for the mouse events
 canvas.addEventListener("mousedown", pressingDown, false);
@@ -32,6 +32,9 @@ function pressingDown(e) {
 }
 
 function notPressingDown(e) {
+  var text = document.getElementById("instructionText")
+  text.innerHTML = "PRESS AND HOLD TO INCREASE VELOCITY";
+  text.classList.remove("blinking");
   //Get position of mouse after click
   position.x = event.offsetX;
   //y value
@@ -50,9 +53,13 @@ function notPressingDown(e) {
 
 function timer() {
 
-  if (counter < pressHoldDuration) {
+  if (counter < pressDuration) {
     timerID = requestAnimationFrame(timer);
     counter++;
+  } else {
+    var element = document.getElementById("instructionText");
+    element.innerHTML = "THRESHOLD REACHED!!!";
+    element.classList.add("blinking");
   }
 }
 
