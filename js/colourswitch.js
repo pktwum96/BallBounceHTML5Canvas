@@ -3,5 +3,9 @@ var colourSelected = "black";
 
 var list = document.getElementById("colourPalette");
 list.onclick = function(event) {
-  return colourSelected = event.target.id;
+  console.log(assignColour(event.target.id));
+}
+
+function assignColour(colour) {
+  return colourSelected = colour;
 }

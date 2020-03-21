@@ -14,10 +14,7 @@ var counter = 0;
 // Increase or decreae value to adjust how long
 // one should keep pressing down before the pressHold
 // event fires
-var position = {
-  x: 0,
-  y: 0
-}
+
 var balls = [];
 var pressDuration = 100;
 
@@ -32,21 +29,14 @@ function pressingDown(e) {
 }
 
 function notPressingDown(e) {
-  var text = document.getElementById("instructionText")
-  text.innerHTML = "PRESS AND HOLD TO INCREASE VELOCITY";
-  text.classList.remove("blinking");
+  updateInstruction("");
   //Get position of mouse after click
-  position.x = event.offsetX;
+  var xCoordinate = event.offsetX;
   //y value
-  position.y = event.offsetY;
+  var yCoordinate = event.offsetY;
 
   //positon gets cordinates of the ball, counter is the speed of the ball multiplied by a + or minus 1 to determine direction (left or right)
-  var ball = new Ball(position.x, position.y, counter / 10 * Math.floor(Math.random() * (3)) + -1, counter / 10, 10, colourSelected);
-  if (position.y <= 11 || position.x <= 11 || position.y >= canvas.height - 10 || position.x >= canvas.width - 10) {
-    console.log("too close to edge");
-  } else {
-    balls.push(ball);
-  }
+  createBall(xCoordinate, yCoordinate, counter);
   cancelAnimationFrame(timerID);
   counter = 0;
 }
@@ -57,9 +47,7 @@ function timer() {
     timerID = requestAnimationFrame(timer);
     counter++;
   } else {
-    var element = document.getElementById("instructionText");
-    element.innerHTML = "THRESHOLD REACHED!!!";
-    element.classList.add("blinking");
+    updateInstruction("threshold");
   }
 }
 
@@ -77,7 +65,7 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
   this.ballRadius = radius;
   this.ballColour = ballColour;
 
-  this.createBall = function() {
+  this.drawBall = function() {
     context.beginPath();
     context.arc(this.positionX, this.positionY, this.ballRadius, 0, Math.PI * 2, false);
     context.fillStyle = this.ballColour;
@@ -86,7 +74,7 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
 
   this.updateAnimation = function() {
     //Change direction and reduce speed when hits walls
-    if (this.positionX + this.ballRadius - this.vectorX > canvas.width || this.positionX - this.ballRadius - this.vectorX < 0) {
+    if (this.positionX + this.ballRadius + this.vectorX > canvas.width || this.positionX - this.ballRadius + this.vectorX < 0) {
       this.vectorX = -this.vectorX * friction;
     }
     //Change direction and reduce speed when hits walls
@@ -101,9 +89,9 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
       this.vectorX = this.vectorX * friction;
     }
     //apply displacement using speed etc
-    this.positionX -= this.vectorX;
+    this.positionX += this.vectorX;
     this.positionY -= this.vectorY;
-    this.createBall();
+    this.drawBall();
   }
 
 }
@@ -117,5 +105,39 @@ function animate() {
   });
 
 }
+//Change colour of ball on click
+function randomDirection() {
+  var direction = 1;
+  var random = Math.random();
+  if (random > 0.5) {
+    return direction = 1
+  } else {
+    return direction = -1
+  }
+}
 
+function createBall(x, y, counter) {
+  var ballRadius = 10;
+  var velocity = counter / 7;
+  var ball = new Ball(x, y, velocity * randomDirection(), velocity, ballRadius, colourSelected);
+  if (y <= 11 || x <= 11 || y >= canvas.height - 10 || x >= canvas.width - 10) {
+    updateInstruction("edge");
+  } else {
+    balls.push(ball);
+  }
+}
+
+function updateInstruction(value) {
+  var element = document.getElementById("instructionText");
+  if (value == "threshold") {
+    element.innerHTML = "THRESHOLD REACHED!!!";
+    element.classList.add("blinking");
+  } else if (value == "edge") {
+    element.innerHTML = "TOO CLOSE TO EDGE!!";
+    element.classList.add("blinking");
+  } else {
+    element.innerHTML = "PRESS AND HOLD TO INCREASE VELOCITY";
+    element.classList.remove("blinking");
+  }
+}
 animate();
