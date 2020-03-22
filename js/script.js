@@ -23,10 +23,10 @@ var balls = [];
 // Listening for the mouse events, triggers function that counts how long button is clicked
 canvas.addEventListener("mousedown", pressingDown, false);
 canvas.addEventListener("mouseup", notPressingDown, false);
-
-//for mobile devices
-canvas.addEventListener("touchstart", pressingDown, false);
-canvas.addEventListener("touchend", notPressingDown, false);
+// 
+// //for mobile devices
+// canvas.addEventListener("touchstart", pressingDown, false);
+// canvas.addEventListener("touchend", notPressingDown, false);
 
 //maximum speed threshold
 var pressDuration = 100;
