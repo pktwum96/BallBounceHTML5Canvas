@@ -1,6 +1,14 @@
-//test colour of ball
-const assignColour =require("../js/colourswitch");
+//test colour
 
-test('text colour assignment', () => {
-  expect(assignColour("red")).toEqual("red");
+const {assignColour} = require('../js/colourswitch.js');
+
+test('test colour', () => {
+  let testValue = assignColour("red");
+  expect(testValue).toEqual("red");
+});
+
+
+test('test', () => {
+  let testValue = assignColour("green");
+  expect(testValue).toEqual("green");
 });

@@ -9,24 +9,13 @@ canvas.width = window.innerWidth;
 //set height to half of screen
 canvas.height = window.innerHeight / 2;
 
-//Set Default ball Colour and size
-var colourSelected = "black";
-var ballSize = 12.5;
 
 //set speed of ball by monitoring how long mouse is clicked
 var timerID;
 var counter = 0;
-
-//array to stay all balls and their details
-var balls = [];
-
 // Listening for the mouse events, triggers function that counts how long button is clicked
 canvas.addEventListener("mousedown", pressingDown, false);
 canvas.addEventListener("mouseup", notPressingDown, false);
-// 
-// //for mobile devices
-// canvas.addEventListener("touchstart", pressingDown, false);
-// canvas.addEventListener("touchend", notPressingDown, false);
 
 //maximum speed threshold
 var pressDuration = 100;
@@ -107,7 +96,6 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
   }
 }
 
-
 //animate ball
 function animate() {
   requestAnimationFrame(animate);
@@ -119,40 +107,3 @@ function animate() {
 }
 
 animate();
-
-
-//Change direction of ball randomly by mutiplying by a factor of 1 or -1
-function randomDirection() {
-  var direction = 1;
-  var random = Math.random();
-  if (random > 0.5) {
-    return direction = 1
-  } else {
-    return direction = -1
-  }
-}
-
-function createBall(x, y, counter, ballSize) {
-  var velocity = counter / 5; //divided by 5 to reduce speed as otherwise too fast
-  var ball = new Ball(x, y, velocity * randomDirection(), velocity, ballSize, colourSelected);
-  //measure closeness to edge and not generate if too close to feasibly create ball
-  if (y <= ballSize || x <= ballSize || y >= canvas.height - ballSize || x >= canvas.width - ballSize) {
-    return updateInstruction("edge");
-  } else {
-    return balls.push(ball);
-  }
-}
-
-function updateInstruction(value) {
-  var element = document.getElementById("instructionText");
-  if (value == "threshold") {
-    element.innerHTML = "THRESHOLD REACHED!!!";
-    element.classList.add("blinking");
-  } else if (value == "edge") {
-    element.innerHTML = "TOO CLOSE TO EDGE!!";
-    element.classList.add("blinking");
-  } else {
-    element.innerHTML = "PRESS AND HOLD TO INCREASE VELOCITY";
-    element.classList.remove("blinking");
-  }
-}
