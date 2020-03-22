@@ -5,7 +5,7 @@ var colourSelected = "black";
 document.addEventListener('DOMContentLoaded', function() {
   var list = document.getElementById("colourPalette");
   list.onclick = function(event) {
-    console.log(assignColour(event.target.id));
+    assignColour(event.target.id);
   }
 });
 const assignColour = (colour) => {
