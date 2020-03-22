@@ -1,26 +1,35 @@
-//Get and set canvas width and height
+//refresh page on window resize
+window.onresize = function() {
+  location.reload();
+}
 
+//Get and set canvas width and height
 var canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
+//set height to half of screen
 canvas.height = window.innerHeight / 2;
 
-//Set Defaukt ball Colour
+//Set Default ball Colour and size
 var colourSelected = "black";
+var ballSize = 12.5;
 
 //set speed of ball by monitoring how long mouse is clicked
 var timerID;
 var counter = 0;
 
-// Increase or decreae value to adjust how long
-// one should keep pressing down before the pressHold
-// event fires
-
+//array to stay all balls and their details
 var balls = [];
-var pressDuration = 100;
 
-// Listening for the mouse events
+// Listening for the mouse events, triggers function that counts how long button is clicked
 canvas.addEventListener("mousedown", pressingDown, false);
 canvas.addEventListener("mouseup", notPressingDown, false);
+
+//for mobile devices
+canvas.addEventListener("touchstart", pressingDown, false);
+canvas.addEventListener("touchend", notPressingDown, false);
+
+//maximum speed threshold
+var pressDuration = 100;
 
 function pressingDown(e) {
   // Start the timer
@@ -35,14 +44,13 @@ function notPressingDown(e) {
   //y value
   var yCoordinate = event.offsetY;
 
-  //positon gets cordinates of the ball, counter is the speed of the ball multiplied by a + or minus 1 to determine direction (left or right)
-  createBall(xCoordinate, yCoordinate, counter);
+  //positon gets cordinates of the ball, counter is the speed of the ball
+  createBall(xCoordinate, yCoordinate, counter, ballSize);
   cancelAnimationFrame(timerID);
   counter = 0;
 }
 
 function timer() {
-
   if (counter < pressDuration) {
     timerID = requestAnimationFrame(timer);
     counter++;
@@ -51,7 +59,9 @@ function timer() {
   }
 }
 
+//factor to pull ball towards the bottom of screen
 var gravity = 0.4;
+//factor to reduce speed when in contact with a surface
 var friction = 0.9;
 
 var context = canvas.getContext('2d');
@@ -65,26 +75,28 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
   this.ballRadius = radius;
   this.ballColour = ballColour;
 
+  //draw ball on screen using details stored in object
   this.drawBall = function() {
     context.beginPath();
     context.arc(this.positionX, this.positionY, this.ballRadius, 0, Math.PI * 2, false);
     context.fillStyle = this.ballColour;
     context.fill();
   }
-
+  //physics simulator
   this.updateAnimation = function() {
-    //Change direction and reduce speed when hits walls
+    //Change direction and reduce speed when hits wall sides
     if (this.positionX + this.ballRadius + this.vectorX > canvas.width || this.positionX - this.ballRadius + this.vectorX < 0) {
       this.vectorX = -this.vectorX * friction;
     }
-    //Change direction and reduce speed when hits walls
+
+    //Change direction and reduce speed when hits walls top and bottom
     if (this.positionY + this.ballRadius - this.vectorY > canvas.height || this.positionY - this.ballRadius - this.vectorY < 0) {
       this.vectorY = -this.vectorY * friction;
     } else {
       //Apply gravity reducing speed
       this.vectorY -= gravity;
     }
-    //reduce speed when in contact with floor
+    //reduce speed when in contact with botom
     if (this.positionY + this.ballRadius + this.vectorY >= canvas.height) {
       this.vectorX = this.vectorX * friction;
     }
@@ -93,19 +105,23 @@ function Ball(positionX, positionY, vectorX, vectorY, radius, ballColour) {
     this.positionY -= this.vectorY;
     this.drawBall();
   }
-
 }
 
 
+//animate ball
 function animate() {
   requestAnimationFrame(animate);
   context.clearRect(0, 0, innerWidth, innerHeight);
+  //call all balls stired in array and animate
   balls.forEach((item, i) => {
     item.updateAnimation();
   });
-
 }
-//Change colour of ball on click
+
+animate();
+
+
+//Change direction of ball randomly by mutiplying by a factor of 1 or -1
 function randomDirection() {
   var direction = 1;
   var random = Math.random();
@@ -116,14 +132,14 @@ function randomDirection() {
   }
 }
 
-function createBall(x, y, counter) {
-  var ballRadius = 10;
-  var velocity = counter / 7;
-  var ball = new Ball(x, y, velocity * randomDirection(), velocity, ballRadius, colourSelected);
-  if (y <= 11 || x <= 11 || y >= canvas.height - 10 || x >= canvas.width - 10) {
-    updateInstruction("edge");
+function createBall(x, y, counter, ballSize) {
+  var velocity = counter / 5; //divided by 5 to reduce speed as otherwise too fast
+  var ball = new Ball(x, y, velocity * randomDirection(), velocity, ballSize, colourSelected);
+  //measure closeness to edge and not generate if too close to feasibly create ball
+  if (y <= ballSize || x <= ballSize || y >= canvas.height - ballSize || x >= canvas.width - ballSize) {
+    return updateInstruction("edge");
   } else {
-    balls.push(ball);
+    return balls.push(ball);
   }
 }
 
@@ -140,4 +156,3 @@ function updateInstruction(value) {
     element.classList.remove("blinking");
   }
 }
-animate();

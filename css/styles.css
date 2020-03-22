@@ -18,17 +18,16 @@ body {
   align-content: center;
 }
 
-td {
-  border: 0
+#options {
+  display: flex;
+  flex-direction: row;
 }
 
-button {
-  border: 0
-}
 
 #instructions h3 {
   text-align: center;
   margin-bottom: 0;
+  margin-top:10rem;
 }
 
 .blinking {
@@ -71,14 +70,16 @@ canvas {
   color: white;
 }
 
-#colourSelector h4 {
+#options h4 {
   text-align: center;
+  margin-bottom: 0;
 }
 
 #colourPalette button {
   width: 12.5%;
   height: 10px;
   margin-top: 5px;
+  border:0;
   float: left;
 }
 
